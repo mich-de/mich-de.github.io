@@ -1,0 +1,44 @@
+name: Auto-update Hobby Showcase
+
+on:
+  schedule:
+    - cron: '0 4 * * *'
+  workflow_dispatch:
+  repository_dispatch:
+    types: [repo-updated]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  update-showcase:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build Hobby Showcase
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node build.js
+
+      - name: Commit and push changes if updated
+        run: |
+          git config --global user.name "mich-de"
+          git config --global user.email "mic.deangelis@gmail.com"
+          if [ -n "$(git status --porcelain index.html hobbies.config.json)" ]; then
+            git add index.html hobbies.config.json
+            git commit -m "Auto-update hobby showcase [skip ci]"
+            git push origin main
+          else
+            echo "No repository changes detected. Showcase is up to date."
+          fi
