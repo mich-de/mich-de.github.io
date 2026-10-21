@@ -1,0 +1,202 @@
+{
+  "user": "mich-de",
+  "excludedRepos": [
+    "pizza",
+    "trenibusnapoli",
+    "carburanti-campania",
+    "GPL_CAMPANIA",
+    "physioflow",
+    "vitadasingle",
+    "lavatrice",
+    "planimetrie",
+    "d33z3r",
+    "arl-ecchino",
+    "Myvidplay.com-downloader",
+    "vavoo-player",
+    "strcomm",
+    "gutteridge-price-tracker",
+    "subito",
+    "comet",
+    "Velune-doped",
+    "OdissRea",
+    "portfolio-legacy",
+    "portfolio-mich-de",
+    "mich-de",
+    "mich-de.github.io",
+    "0mf2097",
+    "italyitvpro"
+  ],
+  "categories": [
+    {
+      "id": "retrogaming",
+      "title": "Retro gaming",
+      "description": "1990s DOS classics brought to the browser, with touch controls so you can play them on a phone too.",
+      "icon": "#i-game",
+      "hue": 35,
+      "keywords": ["omf", "mario", "dos", "game", "retro", "emulator", "wasm"],
+      "explicit": ["omf2097", "openomf2097", "OpenOmf2097NWO", "mariosgg"]
+    },
+    {
+      "id": "travel",
+      "title": "Travel",
+      "description": "The Sol & Local guides: walking routes, logistics and must-see spots, prepared before setting off.",
+      "icon": "#i-compass",
+      "hue": 230,
+      "keywords": ["travel", "guide", "tour", "itinerary", "places"],
+      "explicit": ["roma", "ponza", "spagna", "benevento-xi"]
+    },
+    {
+      "id": "motors",
+      "title": "Motors",
+      "description": "Technical manuals, service schedules and workshop notes for cars and two-wheelers.",
+      "icon": "#i-gauge",
+      "hue": 15,
+      "keywords": ["car", "motor", "engine", "scooter", "moto", "honda", "alfa", "giulia", "vehicle"],
+      "explicit": ["alfa-romeo-giulia", "hondash300", "scooter"]
+    },
+    {
+      "id": "food",
+      "title": "Food & wine",
+      "description": "Award-winning wineries and village food festivals: tradition at the table.",
+      "icon": "#i-glass",
+      "hue": 355,
+      "keywords": ["wine", "food", "sagra", "drink", "vineyard", "cooking", "cuisine"],
+      "explicit": ["vini-italiani", "sagre"]
+    },
+    {
+      "id": "fragrances",
+      "title": "Fragrances",
+      "description": "Scent notes side by side: the big names and their alternatives.",
+      "icon": "#i-bottle",
+      "hue": 305,
+      "keywords": ["perfume", "fragrance", "scent", "dupe", "olfactory"],
+      "explicit": ["profumi"]
+    },
+    {
+      "id": "homelab",
+      "title": "Homelab & networking",
+      "description": "Routers, VPNs and self-hosted home servers.",
+      "icon": "#i-server",
+      "hue": 165,
+      "keywords": ["homelab", "firmware", "openwrt", "wireguard", "vpn", "server", "selfhost", "network", "immich", "router"],
+      "explicit": ["brume-firmware", "immic-for-pixels-phone"]
+    },
+    {
+      "id": "smartphone",
+      "title": "Smartphone tuning",
+      "description": "Squeezing more battery life and performance out of Android phones.",
+      "icon": "#i-phone",
+      "hue": 265,
+      "keywords": ["battery", "samsung", "galaxy", "debloat", "android", "tuning", "mobile-opt"],
+      "explicit": ["s25edge_battery", "samsung_s24_battery_life"]
+    },
+    {
+      "id": "ai",
+      "title": "AI & voice",
+      "description": "Text-to-speech experiments with open models.",
+      "icon": "#i-mic",
+      "hue": 85,
+      "keywords": ["ai", "tts", "voice", "speech", "colab", "qwen", "llm", "deeplearning"],
+      "explicit": ["Qwen3-TTS-Colab-ita"]
+    }
+  ],
+  "repoOverrides": {
+    "omf2097": {
+      "title": "One Must Fall 2097",
+      "description": "The 1994 robot fighting game, playable in the browser with js-dos and touch controls.",
+      "kind": "Play",
+      "url": "https://mich-de.github.io/omf2097/"
+    },
+    "openomf2097": {
+      "title": "OpenOMF in WebAssembly",
+      "description": "OMF 2097 compiled natively to WebAssembly, no emulator.",
+      "kind": "Code"
+    },
+    "OpenOmf2097NWO": {
+      "title": "OMF 2097 · NWO",
+      "description": "A satirical edition with 24 pilots taken from today's world stage.",
+      "kind": "Code"
+    },
+    "mariosgg": {
+      "title": "Mario's Game Gallery",
+      "description": "The 1995 minigame collection, playable on desktop and touch devices.",
+      "kind": "Play",
+      "url": "https://mich-de.github.io/mariosgg/"
+    },
+    "roma": {
+      "title": "Rome",
+      "description": "Self-guided walks and themed itineraries across the city.",
+      "kind": "Guide"
+    },
+    "ponza": {
+      "title": "Ponza",
+      "description": "Coves, boat rental and ferries to the island.",
+      "kind": "Guide"
+    },
+    "spagna": {
+      "title": "Costa del Sol",
+      "description": "Itineraries, logistics and points of interest in southern Spain.",
+      "kind": "Guide"
+    },
+    "benevento-xi": {
+      "title": "Benevento & Sannio",
+      "description": "Walking tours, history and orientation in the Sannio area.",
+      "kind": "Guide"
+    },
+    "alfa-romeo-giulia": {
+      "title": "Alfa Romeo Giulia",
+      "description": "Tech specs, upgrades and the 100,000 km checklist.",
+      "kind": "Portal"
+    },
+    "hondash300": {
+      "title": "Honda SH 300",
+      "description": "Technical manual, maintenance schedule and service log.",
+      "kind": "Manual"
+    },
+    "scooter": {
+      "title": "Scooter workshop",
+      "description": "Workshop notes and maintenance logbook for two-wheelers.",
+      "kind": "Notes"
+    },
+    "vini-italiani": {
+      "title": "Italian wines",
+      "description": "Interactive catalog and buyer's guide to award-winning wines.",
+      "kind": "Catalog"
+    },
+    "sagre": {
+      "title": "SagreAI",
+      "description": "Discover traditional food festivals and cultural events.",
+      "kind": "Platform"
+    },
+    "profumi": {
+      "title": "ScentSense",
+      "description": "Interactive comparison of luxury perfumes and their dupes (Zara, Lattafa and more).",
+      "kind": "Portal"
+    },
+    "brume-firmware": {
+      "title": "Brume 2 firmware",
+      "description": "Custom OpenWrt with WireGuard, AdGuard Home, NetBird and DoH.",
+      "kind": "Firmware"
+    },
+    "immic-for-pixels-phone": {
+      "title": "Immich on Pixel",
+      "description": "A self-hosted photo server running directly on a Pixel phone.",
+      "kind": "Setup"
+    },
+    "s25edge_battery": {
+      "title": "Galaxy S25 Edge",
+      "description": "Battery optimization, performance profiles and debloat scripts.",
+      "kind": "Scripts"
+    },
+    "samsung_s24_battery_life": {
+      "title": "Galaxy S24",
+      "description": "Power calibration and tuning utilities for the S24 series.",
+      "kind": "Scripts"
+    },
+    "Qwen3-TTS-Colab-ita": {
+      "title": "Qwen3 TTS in Italian",
+      "description": "Colab notebook and text-to-speech pipeline tuned for Italian.",
+      "kind": "Notebook"
+    }
+  }
+}
