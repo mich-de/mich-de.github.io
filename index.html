@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mich-de · Hobby</title>
+<meta name="description" content="Le passioni dietro i progetti open source di mich-de.">
+<meta name="robots" content="index, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f0e0c; --surface:#181613; --line:#2a2620; --text:#ece6db; --muted:#9c9385;
+    --accent:#e8a34a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font:16px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+  header{padding:96px 0 56px;border-bottom:1px solid var(--line)}
+  .handle{font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600}
+  h1{font-family:Fraunces,Georgia,serif;font-weight:700;font-size:clamp(40px,7vw,80px);line-height:1.02;margin:16px 0 20px;letter-spacing:-.02em}
+  h1 em{font-style:italic;color:var(--accent);font-weight:400}
+  .lead{max-width:56ch;color:var(--muted);font-size:18px}
+  nav.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:36px}
+  nav.chips a{text-decoration:none;font-size:14px;padding:6px 14px;border:1px solid var(--line);border-radius:999px;color:var(--muted);transition:.2s}
+  nav.chips a:hover{color:var(--text);border-color:var(--accent)}
+
+  section.hobby{display:grid;grid-template-columns:280px 1fr;gap:48px;padding:64px 0;border-bottom:1px solid var(--line);scroll-margin-top:16px}
+  .hobby-head .icon{font-size:36px;line-height:1}
+  .hobby-head h2{font-family:Fraunces,Georgia,serif;font-size:32px;line-height:1.1;margin:14px 0 10px;letter-spacing:-.01em}
+  .hobby-head p{color:var(--muted);font-size:15px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;align-content:start}
+  .card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;text-decoration:none;transition:border-color .2s,transform .2s}
+  .card:hover{border-color:var(--accent);transform:translateY(-2px)}
+  .card h3{font-size:16px;font-weight:600;margin-bottom:6px}
+  .card p{font-size:14px;color:var(--muted);flex:1}
+  .card .meta{margin-top:14px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);display:flex;gap:14px}
+  .card .meta span{white-space:nowrap}
+
+  footer{padding:48px 0 64px;color:var(--muted);font-size:14px}
+  footer a{color:var(--accent);text-decoration:none}
+
+  @media (max-width:820px){
+    section.hobby{grid-template-columns:1fr;gap:24px;padding:48px 0}
+    header{padding:64px 0 40px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="handle">@mich-de</div>
+    <h1>Codice nato dalle <em>passioni</em>.</h1>
+    <p class="lead">Quasi tutti i miei repository partono da un hobby: un vecchio gioco da riportare in vita, un viaggio da organizzare, un motore da curare. Qui li trovi raccolti per passione.</p>
+    <nav class="chips" aria-label="Hobby">
+      <a href="#retrogaming">Retro gaming</a>
+      <a href="#viaggi">Viaggi</a>
+      <a href="#motori">Motori</a>
+      <a href="#gusto">Cibo &amp; vino</a>
+      <a href="#profumi">Profumi</a>
+      <a href="#homelab">Homelab</a>
+      <a href="#smartphone">Smartphone</a>
+      <a href="#ai">AI &amp; voce</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hobby" id="retrogaming">
+    <div class="hobby-head">
+      <div class="icon" aria-hidden="true">🕹️</div>
+      <h2>Retro gaming</h2>
+      <p>Classici DOS degli anni '90 riportati nel browser, con controlli touch per giocarli anche da telefono.</p>
+    </div>
+    <div class="grid">
+      <a class="card" href="https://mich-de.github.io/omf2097/">
+        <h3>One Must Fall 2097</h3>
+        <p>Il picchiaduro coi robot del 1994, giocabile nel browser con js-dos e controlli touch.</p>
+        <div class="meta"><span>▶ Gioca</span></div>
+      </a>
+      <a class="card" href="https://github.com/mich-de/openomf2097">
+        <h3>OpenOMF in WebAssembly</h3>
+        <p>OMF 2097 compilato nativamente in WebAssembly, senza emulatore.</p>
+        <div class="meta"><span>Codice</span></div>
+      </a>
+      <a class="card" href="https://github.com/mich-de/OpenOmf2097NWO">
+        <h3>OMF 2097 · NWO</h3>
+        <p>Un'edizione satirica con 24 piloti presi dalla scena mondiale di oggi.</p>
+        <div class="meta"><span>Codice</span></div>
+      </a>
+      <a class="card" href="https://mich-de.github.io/mariosgg/">
+        <h3>Mario's Game Gallery</h3>
+        <p>La raccolta di minigiochi del 1995, giocabile da desktop e da touch.</p>
+        <div class="meta"><span>▶ Gioca</span></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="hobby" id="viaggi">
+    <div class="hobby-head">
+      <div class="icon" aria-hidden="true">🧭</div>
+      <h2>Viaggi</h2>
+      <p>Le guide <strong>Sol &amp; Local</strong>: itinerari a piedi, logistica e posti da non perdere, preparati prima di partire.</p>
+    </div>
+    <div class="grid">
+      <a class="card" href="https://github.com/mich-de/roma">
+        <h3>Roma</h3>
+        <p>Passeggiate in autonomia e itinerari a tema per la città.</p>
+        <div class="meta"><span>Guida</span></div>
+      </a>
+      <a class="card" href="https://github.com/mich-de/ponza">
+        <h3>Ponza</h3>
+        <p>Calette, noleggio barche e traghetti per l'isola.</p>
+        <div class="meta"><span>Guida</span></div>
+      </a>
+      <a class="card" href="https://github.com/mich-de/spagna">
+        <h3>Costa del Sol</h3>
+        <p>Itinerari, logistica e punti d'interesse nel sud della Spagna.</p>
+        <div class="meta"><span>Guida</span></div>
+      </a>
+      <a class="card" href="https://github.com/mich-de/benevento-xi">
+        <h3>Benevento &amp; Sannio</h3>
+        <p>Tour a piedi, storia e orientamento nel Sannio.</p>
+        <div class="meta"><span>Guida</span></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="hobby" id="motori">
+    <div class="hobby-head">
+      <div class="icon" aria-hidden="true">🏍️</div>
+      <h2>Motori</h2>
+      <p>Manuali tecnici, tagliandi e appunti d'officina per auto e due ruote.</p>
+    </div>
+    <div class="grid">
+      <a class="card" href="https://github.com/mich-de/alfa-romeo-giulia">
+        <h3>Alfa Romeo Giulia</h3>
+        <p>Schede tecniche, upgrade e checklist dei 100.000 km.</p>
+        <div class="meta"><span>Portale</span></div>
+      </a>
+      <a class="card" href="https://github.com/mich-de/hondash300">
+        <h3>Honda SH 300</h3>
+        <p>Manuale tecnico, piano di manutenzione e registro interventi.</p>
+        <div class="meta"><span>Manuale</span></div>
+      </a>
+      <a class="card" href="https://github.com/mich-de/scooter">
+        <h3>Officina scooter</h3>
+        <p>Appunti di lavoro e libretto di manutenzione per le due ruote.</p>
+        <div class="meta"><span>Note</span></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="hobby" id="gusto">
+    <div class="hobby-head">
+      <div class="icon" aria-hidden="true">🍷</div>
+      <h2>Cibo &amp; vino</h2>
+      <p>Cantine premiate e feste di paese: la tradizione a tavola.</p>
+    </div>
+    <div class="grid">
+      <a class="card" href="https://github.com/mich-de/vini-italiani">
+        <h3>Vini italiani</h3>
+        <p>Catalogo interattivo e guida all'acquisto dei vini premiati.</p>
+        <div class="meta"><span>Catalogo</span></div>
+      </a>
+      <a class="card" href="https://github.com/mich-de/sagre">
+        <h3>SagreAI</h3>
+        <p>Per scoprire sagre ed eventi della tradizione gastronomica.</p>
+        <div class="meta"><span>Piattaforma</span></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="hobby" id="profumi">
+    <div class="hobby-head">
+      <div class="icon" aria-hidden="true">🌿</div>
+      <h2>Profumi</h2>
+      <p>Note olfattive a confronto: i grandi nomi e le loro alternative.</p>
+    </div>
+    <div class="grid">
+      <a class="card" href="https://github.com/mich-de/profumi">
+        <h3>ScentSense</h3>
+        <p>Confronto interattivo tra profumi di lusso e i loro "dupe" (Zara, Lattafa e altri).</p>
+        <div class="meta"><span>Portale</span></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="hobby" id="homelab">
+    <div class="hobby-head">
+      <div class="icon" aria-hidden="true">🛰️</div>
+      <h2>Homelab &amp; rete</h2>
+      <p>Router, VPN e server domestici in self-hosting.</p>
+    </div>
+    <div class="grid">
+      <a class="card" href="https://github.com/mich-de/brume-firmware">
+        <h3>Firmware Brume 2</h3>
+        <p>OpenWrt personalizzato con WireGuard, AdGuard Home, NetBird e DoH.</p>
+        <div class="meta"><span>Firmware</span></div>
+      </a>
+      <a class="card" href="https://github.com/mich-de/immic-for-pixels-phone">
+        <h3>Immich su Pixel</h3>
+        <p>Un server foto self-hosted che gira direttamente su uno smartphone Pixel.</p>
+        <div class="meta"><span>Setup</span></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="hobby" id="smartphone">
+    <div class="hobby-head">
+      <div class="icon" aria-hidden="true">🔋</div>
+      <h2>Smartphone tuning</h2>
+      <p>Spremere più autonomia e prestazioni dai telefoni Android.</p>
+    </div>
+    <div class="grid">
+      <a class="card" href="https://github.com/mich-de/s25edge_battery">
+        <h3>Galaxy S25 Edge</h3>
+        <p>Ottimizzazione batteria, profili prestazionali e script di debloat.</p>
+        <div class="meta"><span>Script</span></div>
+      </a>
+      <a class="card" href="https://github.com/mich-de/samsung_s24_battery_life">
+        <h3>Galaxy S24</h3>
+        <p>Calibrazione energetica e utility di tuning per la serie S24.</p>
+        <div class="meta"><span>Script</span></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="hobby" id="ai">
+    <div class="hobby-head">
+      <div class="icon" aria-hidden="true">🎙️</div>
+      <h2>AI &amp; voce</h2>
+      <p>Esperimenti di sintesi vocale con modelli aperti.</p>
+    </div>
+    <div class="grid">
+      <a class="card" href="https://github.com/mich-de/Qwen3-TTS-Colab-ita">
+        <h3>Qwen3 TTS in italiano</h3>
+        <p>Notebook Colab e pipeline text-to-speech ottimizzati per l'italiano.</p>
+        <div class="meta"><span>Notebook</span></div>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">Tutti i progetti su <a href="https://github.com/mich-de">github.com/mich-de</a></div>
+</footer>
+
+</body>
+</html>
