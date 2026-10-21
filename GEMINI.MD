@@ -1,3 +1,4 @@
-# Memoria progetto
+# Project memory
 
-- 2026-10-21: creata la pagina hobby. Mostrati solo i repo legati a un hobby; gli altri sono esclusi di proposito.
+- 2026-10-21: hobby page created. Only hobby-related repos are shown; others are intentionally left out.
+- 2026-10-21: page translated to English.

@@ -1,9 +1,9 @@
 # mich-de.github.io
 
-Pagina statica che mostra gli hobby dietro i repository pubblici di mich-de. Nessun dato personale.
+Static page showcasing the hobbies behind mich-de's public repositories. No personal data.
 
 ## How to install
-Nessuna dipendenza: e' un singolo index.html.
+No dependencies: it is a single index.html.
 
 ## How to use
-Apri index.html in locale, oppure visita https://mich-de.github.io/ . Per aggiungere un progetto, copia un blocco 'card' nella sezione dell'hobby giusto e fai push su main.
+Open index.html locally or visit https://mich-de.github.io/ . To add a project, copy a 'card' block into the right hobby section and push to main.

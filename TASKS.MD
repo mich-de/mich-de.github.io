@@ -1,5 +1,6 @@
 # Tasks
 
-- [x] [FRONTEND] Pagina hobby (index.html)
-- [x] [DEVOPS] Repo mich-de.github.io + GitHub Pages
-- [ ] [FRONTEND] Aggiungere nuovi repo hobby quando pubblicati
+- [x] [FRONTEND] Hobby page (index.html)
+- [x] [FRONTEND] English translation
+- [x] [DEVOPS] mich-de.github.io repo + GitHub Pages
+- [ ] [FRONTEND] Add new hobby repos as they are published
