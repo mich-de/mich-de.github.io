@@ -4,3 +4,4 @@
 - [x] [FRONTEND] English translation
 - [x] [DEVOPS] mich-de.github.io repo + GitHub Pages
 - [ ] [FRONTEND] Add new hobby repos as they are published
+- [x] [FRONTEND] Technical-minimal redesign with light/dark switch
