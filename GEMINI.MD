@@ -1,3 +1,3 @@
 # Memoria progetto
 
-- 2026-10-21: creata la pagina hobby. Esclusi di proposito: repo legati al luogo (pizza, trenibusnapoli, carburanti, GPL), lavoro (physioflow), vita privata (vitadasingle, lavatrice, planimetrie), downloader/streaming in zona grigia.
+- 2026-10-21: creata la pagina hobby. Mostrati solo i repo legati a un hobby; gli altri sono esclusi di proposito.
