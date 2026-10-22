@@ -7,7 +7,7 @@ VOW = set("aeiouɛɔəɐʊɪ")
 def prep_text(t):
     t = re.sub(r"Ahahah!?", "", t, flags=re.I)
     t = t.replace("hê", "e").replace("ê", "e").replace("ô", "o")
-    t = re.sub(r"\b([sStTmMnNcC])' +'?", r"\1", t)                     # s' 'o magna -> so magna
+    t = re.sub(r"\b([sStTmMnNcCdD])' +'?", r"\1", t)                     # s' 'o magna -> so magna
     t = re.sub(r"\b([A-Za-z])'(?=[A-Za-zàèéìòù])", r"\1", t)        # m'aggio s'è n'è -> maggio sè nè
     t = re.sub(r"(?<![A-Za-zàèéìòóù])è(?![A-Za-zàèéìòóù])", "é", t)    # verbo "è" accentato, non muto
     t = re.sub(r"(?<![A-Za-zàèéìòóù])'(?=[A-Za-z])", "", t)          # 'a 'o 'nu -> a o nu
@@ -16,7 +16,7 @@ def prep_text(t):
     t = re.sub(r"\b([nN]) (?=[A-Za-z])", r"\1", t)                  # 'n culo -> nculo
     t = re.sub(r"\bj", "i", t); t = re.sub(r"\bJ", "I", t); t = t.replace("j", "i")   # j = [j] come in "ieri"
     t = re.sub(r"\b([Gg])u(?=[aeioàèéìòù])", lambda m: "W" if m.group(1) == "G" else "w", t)  # guaio -> waio
-    t = re.sub(r"\b[Dd](?=[aeiouàèéìòù])", lambda m: "R" if m.group(0) == "D" else "r", t)    # dimme -> rimme
+    t = re.sub(r"\b[Dd](?=[aeiouàèéìòù])(?!io\b)", lambda m: "R" if m.group(0) == "D" else "r", t)    # dimme -> rimme (ma Dio resta Dio)
     t = re.sub(r"(?<=[aeiouàèéìòù])d(?=[aeiouàèéìòù])", "r", t)                                # intervocalica
     return re.sub(r"\s+", " ", t).strip()
 
