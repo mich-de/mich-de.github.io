@@ -16,6 +16,6 @@ Remake per browser di Blobby Volley, da giocare sul telefono. Si gioca contro il
 - `voices.js`: voci delle battute e risate in MP3 (base64)
 
 ## Crediti
-- Voci generate con [Piper TTS](https://github.com/rhasspy/piper) (voci it_IT riccardo e paola), pronuncia adattata al napoletano
+- Voci generate con [Piper TTS](https://github.com/rhasspy/piper) (voci it_IT riccardo e paola), con la pronuncia napoletana applicata suono per suono secondo [Wikibooks: Napoletano/Pronuncia](https://it.wikibooks.org/wiki/Napoletano/Pronuncia): scevà (ə) sulle vocali finali e atone, s + consonante = [ʃ], gu = [w], gli = [j], rotacismo della d
 - Risate: Cesare Monzani, «La risata di Cantalamessa» (Victor, 1923), pubblico dominio, Library of Congress National Jukebox
 - Ispirato a Blobby Volley (1999) e Blobby Volley 2
