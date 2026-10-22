@@ -6,11 +6,21 @@
 <title>mich-de · Hobbies</title>
 <meta name="description" content="The hobbies behind mich-de's open source projects.">
 <meta name="color-scheme" content="light dark">
+<meta name="theme-color" id="theme-color" content="#f3f2ef">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230e0e0e'/%3E%3Cg fill='%233a3a3a'%3E%3Ccircle cx='9' cy='9' r='3'/%3E%3Ccircle cx='16' cy='9' r='3'/%3E%3Ccircle cx='23' cy='9' r='3'/%3E%3Ccircle cx='9' cy='16' r='3'/%3E%3Ccircle cx='23' cy='16' r='3'/%3E%3Ccircle cx='9' cy='23' r='3'/%3E%3Ccircle cx='16' cy='23' r='3'/%3E%3Ccircle cx='23' cy='23' r='3'/%3E%3C/g%3E%3Ccircle cx='16' cy='16' r='3.4' fill='%23ff5a1f'/%3E%3C/svg%3E">
 <script>
   (function () {
-    var t = localStorage.getItem('theme');
+    var d = document.documentElement, t = null, seen = null;
+    try { t = localStorage.getItem('theme'); } catch (e) {}
     if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    document.documentElement.dataset.theme = t;
+    d.dataset.theme = t;
+    document.getElementById('theme-color').content = t === 'dark' ? '#0e0e0e' : '#f3f2ef';
+    // Splash: once per session, never with reduced motion or when deep-linking to a section.
+    try { seen = sessionStorage.getItem('splash-seen'); } catch (e) { seen = '1'; }
+    if (!seen && !location.hash && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      d.classList.add('is-splash');
+      setTimeout(function () { d.classList.remove('is-splash'); }, 5000); // safety net
+    }
   })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,7 +41,7 @@
   }
 
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth;scrollbar-color:var(--line-strong) var(--bg)}
+  html{scroll-behavior:smooth;scroll-padding-top:72px;scrollbar-color:var(--line-strong) var(--bg)}
   body{
     background:var(--bg);color:var(--text);
     font:16px/1.6 Geist,system-ui,sans-serif;
@@ -43,7 +53,15 @@
   ::-webkit-scrollbar-track{background:var(--bg)}
   ::-webkit-scrollbar-thumb{background:var(--line-strong);border:3px solid var(--bg);border-radius:10px}
   a{color:inherit;text-decoration:none}
+  a,button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
   :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+  .skip{
+    position:fixed;top:10px;left:10px;z-index:50;padding:10px 14px;border-radius:8px;
+    background:var(--text);color:var(--bg);font:500 13px/1 "Geist Mono",monospace;
+    transform:translateY(-160%);transition:transform .2s cubic-bezier(.16,1,.3,1);
+  }
+  .skip:focus-visible{transform:none}
+  main:focus{outline:none}
   .mono{font-family:"Geist Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
   .wrap{max-width:1200px;margin:0 auto;padding:0 32px}
   svg.ico{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex:none}
@@ -58,9 +76,12 @@
     display:inline-flex;align-items:center;gap:8px;cursor:pointer;
     font:500 12px/1 "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;
     color:var(--text);background:var(--surface);border:1px solid var(--line);
-    padding:8px 12px;border-radius:999px;transition:border-color .2s;
+    padding:8px 12px;border-radius:999px;transition:border-color .2s,transform .15s;
+    position:relative;
   }
+  .toggle::after{content:"";position:absolute;inset:-7px -4px} /* 44px hit area */
   .toggle:hover{border-color:var(--text)}
+  .toggle:active{transform:scale(.96)}
   .toggle svg{width:15px;height:15px}
   [data-theme="light"] .i-sun,[data-theme="dark"] .i-moon{display:none}
 
@@ -117,14 +138,14 @@
   .row .slug{font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .row .t{font-weight:500}
   .row .d{display:block;color:var(--muted);font-size:14px;margin-top:2px}
-  .row .k{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);justify-self:end}
+  .row .k{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);justify-self:end}
   .row .k.play{color:var(--accent-ink)}
   .row .arr{width:16px;height:16px;justify-self:end;color:var(--muted);transition:transform .3s cubic-bezier(.16,1,.3,1),color .2s}
   .row:hover .arr{transform:translate(3px,-3px);color:var(--accent-ink)}
   .row:hover .t{color:var(--accent-ink)}
 
   /* Per-hobby hue: a hair of difference between sections */
-  [style*="--h"]{--hc:oklch(.56 .14 var(--h))}
+  [style*="--h"]{--hc:oklch(.48 .14 var(--h))} /* L .48 keeps every hue >= 4.5:1 on the band */
   [data-theme="dark"] [style*="--h"]{--hc:oklch(.76 .12 var(--h))}
   .index a{justify-content:flex-start}
   .index .n{margin-left:auto}
@@ -138,6 +159,52 @@
   footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:40px;padding-bottom:56px;font-size:13px;color:var(--muted)}
   footer a{color:var(--text);border-bottom:1px solid var(--line-strong);transition:border-color .2s}
   footer a:hover{border-color:var(--accent)}
+
+  /* Splash: a dot-matrix boot screen, shown once per session */
+  .sp{
+    position:fixed;inset:0;z-index:100;display:none;flex-direction:column;
+    background-color:var(--bg);color:var(--text);cursor:pointer;user-select:none;-webkit-user-select:none;
+    background-image:radial-gradient(var(--dot) 1.2px,transparent 1.2px);
+    background-size:16px 16px;background-position:-8px -8px;
+  }
+  html.is-splash{overflow:hidden}
+  html.is-splash .sp{display:flex}
+  html.is-splash h1{animation-play-state:paused}
+  .sp-top{flex:none;border-bottom:1px solid var(--line);background:var(--bg)}
+  .sp-top .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:16px}
+  .sp .led{animation:blink .9s steps(2,jump-none) infinite}
+  .sp.ready .led{animation:none}
+  @keyframes blink{50%{opacity:.25}}
+  .sp-mid{flex:1;display:flex;flex-direction:column;justify-content:center;gap:28px;width:min(760px,100% - 40px);margin:0 auto}
+  .sp-mx{display:block;width:100%;height:auto;overflow:visible}
+  .sp-mx pattern circle{fill:var(--dot)}
+  [data-theme="light"] .sp-mx .off{opacity:.6}
+  .sp-mx .on{
+    fill:var(--text);opacity:0;transform-box:fill-box;transform-origin:center;
+    animation:dot-on .32s var(--d) cubic-bezier(.34,1.56,.64,1) forwards;
+  }
+  .sp-mx .hot{fill:var(--accent)}
+  [data-theme="dark"] .sp-mx .hot{filter:drop-shadow(0 0 4px var(--accent))}
+  @keyframes dot-on{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+  .sp-bar{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:6px}
+  .sp-bar i{display:block;height:6px;border-radius:2px;background:var(--line);overflow:hidden}
+  .sp-bar i::after{
+    content:"";display:block;height:100%;background:var(--hc);transform:scaleX(0);transform-origin:left;
+    animation:seg .26s calc(140ms + var(--i) * 110ms) cubic-bezier(.16,1,.3,1) forwards;
+  }
+  @keyframes seg{to{transform:scaleX(1)}}
+  .sp-meta{display:flex;justify-content:space-between;gap:16px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .sp-meta b{font-weight:500;color:var(--text)}
+  .sp-meta b::before{content:"› ";color:var(--accent)}
+  .sp-foot{flex:none;border-top:1px solid var(--line);background:var(--bg)}
+  .sp-foot .wrap{display:flex;align-items:center;justify-content:space-between;height:52px;font-size:12px;color:var(--muted)}
+  .sp-foot kbd{font:inherit;color:var(--text);border:1px solid var(--line-strong);border-radius:4px;padding:2px 6px;margin-left:6px}
+  .sp-foot .tap{display:none}
+  @media (pointer:coarse){.sp-foot .key{display:none}.sp-foot .tap{display:inline}}
+  /* Exit is faster than enter and accelerates away, revealing the page underneath */
+  .sp.out{animation:sp-out .46s cubic-bezier(.7,0,.84,0) forwards;pointer-events:none}
+  .sp.out .sp-mid{transition:opacity .2s;opacity:0}
+  @keyframes sp-out{to{transform:translateY(-100%)}}
 
   @media (max-width:960px){
     .hero .wrap{grid-template-columns:1fr;gap:28px;padding-top:80px;padding-bottom:56px}
@@ -166,6 +233,24 @@
 </style>
 </head>
 <body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="sp" id="splash" aria-hidden="true">
+  <div class="sp-top"><div class="wrap">
+    <span class="handle mono"><span class="led"></span>mich-de</span>
+    <span class="bar-right"><span class="count mono">8 hobbies · 19 repos</span></span>
+  </div></div>
+  <div class="sp-mid">
+    <svg class="sp-mx" viewBox="0 0 440 70" focusable="false"><defs><pattern id="sp-grid" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="3.6"/></pattern></defs><rect class="off" width="440" height="70" fill="url(#sp-grid)"/><circle class="on" cx="5" cy="5" r="3.6" style="--d:34ms"/><circle class="on" cx="5" cy="15" r="3.6" style="--d:67ms"/><circle class="on" cx="5" cy="25" r="3.6" style="--d:32ms"/><circle class="on" cx="5" cy="35" r="3.6" style="--d:65ms"/><circle class="on" cx="5" cy="45" r="3.6" style="--d:6ms"/><circle class="on" cx="5" cy="55" r="3.6" style="--d:103ms"/><circle class="on" cx="5" cy="65" r="3.6" style="--d:100ms"/><circle class="on" cx="15" cy="35" r="3.6" style="--d:149ms"/><circle class="on" cx="25" cy="35" r="3.6" style="--d:73ms"/><circle class="on" cx="35" cy="35" r="3.6" style="--d:181ms"/><circle class="on" cx="45" cy="5" r="3.6" style="--d:106ms"/><circle class="on" cx="45" cy="15" r="3.6" style="--d:203ms"/><circle class="on" cx="45" cy="25" r="3.6" style="--d:136ms"/><circle class="on" cx="45" cy="35" r="3.6" style="--d:169ms"/><circle class="on" cx="45" cy="45" r="3.6" style="--d:198ms"/><circle class="on" cx="45" cy="55" r="3.6" style="--d:71ms"/><circle class="on" cx="45" cy="65" r="3.6" style="--d:68ms"/><circle class="on" cx="65" cy="15" r="3.6" style="--d:239ms"/><circle class="on" cx="65" cy="25" r="3.6" style="--d:176ms"/><circle class="on" cx="65" cy="35" r="3.6" style="--d:177ms"/><circle class="on" cx="65" cy="45" r="3.6" style="--d:138ms"/><circle class="on" cx="65" cy="55" r="3.6" style="--d:107ms"/><circle class="on" cx="75" cy="5" r="3.6" style="--d:160ms"/><circle class="on" cx="75" cy="65" r="3.6" style="--d:154ms"/><circle class="on" cx="85" cy="5" r="3.6" style="--d:146ms"/><circle class="on" cx="85" cy="65" r="3.6" style="--d:148ms"/><circle class="on" cx="95" cy="5" r="3.6" style="--d:228ms"/><circle class="on" cx="95" cy="65" r="3.6" style="--d:194ms"/><circle class="on" cx="105" cy="15" r="3.6" style="--d:151ms"/><circle class="on" cx="105" cy="25" r="3.6" style="--d:280ms"/><circle class="on" cx="105" cy="35" r="3.6" style="--d:249ms"/><circle class="on" cx="105" cy="45" r="3.6" style="--d:154ms"/><circle class="on" cx="105" cy="55" r="3.6" style="--d:155ms"/><circle class="on" cx="125" cy="5" r="3.6" style="--d:218ms"/><circle class="on" cx="125" cy="15" r="3.6" style="--d:283ms"/><circle class="on" cx="125" cy="25" r="3.6" style="--d:216ms"/><circle class="on" cx="125" cy="35" r="3.6" style="--d:281ms"/><circle class="on" cx="125" cy="45" r="3.6" style="--d:214ms"/><circle class="on" cx="125" cy="55" r="3.6" style="--d:215ms"/><circle class="on" cx="125" cy="65" r="3.6" style="--d:180ms"/><circle class="on" cx="135" cy="5" r="3.6" style="--d:300ms"/><circle class="on" cx="135" cy="35" r="3.6" style="--d:333ms"/><circle class="on" cx="135" cy="65" r="3.6" style="--d:274ms"/><circle class="on" cx="145" cy="5" r="3.6" style="--d:222ms"/><circle class="on" cx="145" cy="35" r="3.6" style="--d:257ms"/><circle class="on" cx="145" cy="65" r="3.6" style="--d:316ms"/><circle class="on" cx="155" cy="5" r="3.6" style="--d:272ms"/><circle class="on" cx="155" cy="35" r="3.6" style="--d:301ms"/><circle class="on" cx="155" cy="65" r="3.6" style="--d:234ms"/><circle class="on" cx="165" cy="15" r="3.6" style="--d:355ms"/><circle class="on" cx="165" cy="25" r="3.6" style="--d:352ms"/><circle class="on" cx="165" cy="45" r="3.6" style="--d:262ms"/><circle class="on" cx="165" cy="55" r="3.6" style="--d:263ms"/><circle class="on" cx="185" cy="5" r="3.6" style="--d:326ms"/><circle class="on" cx="185" cy="15" r="3.6" style="--d:295ms"/><circle class="on" cx="185" cy="25" r="3.6" style="--d:424ms"/><circle class="on" cx="185" cy="35" r="3.6" style="--d:361ms"/><circle class="on" cx="185" cy="45" r="3.6" style="--d:426ms"/><circle class="on" cx="185" cy="55" r="3.6" style="--d:363ms"/><circle class="on" cx="185" cy="65" r="3.6" style="--d:428ms"/><circle class="on" cx="195" cy="5" r="3.6" style="--d:344ms"/><circle class="on" cx="195" cy="35" r="3.6" style="--d:309ms"/><circle class="on" cx="195" cy="65" r="3.6" style="--d:410ms"/><circle class="on" cx="205" cy="5" r="3.6" style="--d:330ms"/><circle class="on" cx="205" cy="35" r="3.6" style="--d:457ms"/><circle class="on" cx="205" cy="65" r="3.6" style="--d:420ms"/><circle class="on" cx="215" cy="5" r="3.6" style="--d:380ms"/><circle class="on" cx="215" cy="35" r="3.6" style="--d:317ms"/><circle class="on" cx="215" cy="65" r="3.6" style="--d:322ms"/><circle class="on" cx="225" cy="15" r="3.6" style="--d:399ms"/><circle class="on" cx="225" cy="25" r="3.6" style="--d:368ms"/><circle class="on" cx="225" cy="45" r="3.6" style="--d:394ms"/><circle class="on" cx="225" cy="55" r="3.6" style="--d:395ms"/><circle class="on" cx="255" cy="5" r="3.6" style="--d:420ms"/><circle class="on" cx="255" cy="65" r="3.6" style="--d:418ms"/><circle class="on" cx="265" cy="5" r="3.6" style="--d:534ms"/><circle class="on" cx="265" cy="15" r="3.6" style="--d:439ms"/><circle class="on" cx="265" cy="25" r="3.6" style="--d:408ms"/><circle class="on" cx="265" cy="35" r="3.6" style="--d:537ms"/><circle class="on" cx="265" cy="45" r="3.6" style="--d:442ms"/><circle class="on" cx="265" cy="55" r="3.6" style="--d:507ms"/><circle class="on" cx="265" cy="65" r="3.6" style="--d:508ms"/><circle class="on" cx="275" cy="5" r="3.6" style="--d:552ms"/><circle class="on" cx="275" cy="65" r="3.6" style="--d:458ms"/><circle class="on" cx="305" cy="5" r="3.6" style="--d:542ms"/><circle class="on" cx="305" cy="15" r="3.6" style="--d:607ms"/><circle class="on" cx="305" cy="25" r="3.6" style="--d:480ms"/><circle class="on" cx="305" cy="35" r="3.6" style="--d:481ms"/><circle class="on" cx="305" cy="45" r="3.6" style="--d:570ms"/><circle class="on" cx="305" cy="55" r="3.6" style="--d:507ms"/><circle class="on" cx="305" cy="65" r="3.6" style="--d:508ms"/><circle class="on" cx="315" cy="5" r="3.6" style="--d:496ms"/><circle class="on" cx="315" cy="35" r="3.6" style="--d:525ms"/><circle class="on" cx="315" cy="65" r="3.6" style="--d:554ms"/><circle class="on" cx="325" cy="5" r="3.6" style="--d:578ms"/><circle class="on" cx="325" cy="35" r="3.6" style="--d:609ms"/><circle class="on" cx="325" cy="65" r="3.6" style="--d:516ms"/><circle class="on" cx="335" cy="5" r="3.6" style="--d:596ms"/><circle class="on" cx="335" cy="35" r="3.6" style="--d:565ms"/><circle class="on" cx="335" cy="65" r="3.6" style="--d:626ms"/><circle class="on" cx="345" cy="5" r="3.6" style="--d:582ms"/><circle class="on" cx="345" cy="65" r="3.6" style="--d:652ms"/><circle class="on" cx="365" cy="15" r="3.6" style="--d:587ms"/><circle class="on" cx="365" cy="25" r="3.6" style="--d:680ms"/><circle class="on" cx="365" cy="65" r="3.6" style="--d:612ms"/><circle class="on" cx="375" cy="5" r="3.6" style="--d:668ms"/><circle class="on" cx="375" cy="35" r="3.6" style="--d:605ms"/><circle class="on" cx="375" cy="65" r="3.6" style="--d:610ms"/><circle class="on" cx="385" cy="5" r="3.6" style="--d:718ms"/><circle class="on" cx="385" cy="35" r="3.6" style="--d:593ms"/><circle class="on" cx="385" cy="65" r="3.6" style="--d:620ms"/><circle class="on" cx="395" cy="5" r="3.6" style="--d:704ms"/><circle class="on" cx="395" cy="35" r="3.6" style="--d:637ms"/><circle class="on" cx="395" cy="65" r="3.6" style="--d:666ms"/><circle class="on" cx="405" cy="5" r="3.6" style="--d:626ms"/><circle class="on" cx="405" cy="45" r="3.6" style="--d:758ms"/><circle class="on" cx="405" cy="55" r="3.6" style="--d:759ms"/><circle class="on hot" cx="425" cy="55" r="3.6" style="--d:635ms"/><circle class="on hot" cx="425" cy="65" r="3.6" style="--d:700ms"/><circle class="on hot" cx="435" cy="55" r="3.6" style="--d:683ms"/><circle class="on hot" cx="435" cy="65" r="3.6" style="--d:778ms"/></svg>
+    <div class="sp-bar"><i style="--h:35;--i:0"></i><i style="--h:230;--i:1"></i><i style="--h:15;--i:2"></i><i style="--h:355;--i:3"></i><i style="--h:305;--i:4"></i><i style="--h:165;--i:5"></i><i style="--h:265;--i:6"></i><i style="--h:85;--i:7"></i></div>
+    <div class="sp-meta mono"><b id="sp-label">Booting</b><span id="sp-count">00/08</span></div>
+  </div>
+  <div class="sp-foot"><div class="wrap mono">
+    <span><span class="key">Press any key<kbd>↵</kbd></span><span class="tap">Tap anywhere</span> to skip</span>
+    <span>v2026</span>
+  </div></div>
+</div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M4.5 11.5l7-7M5.5 4.5h6v6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -215,104 +300,104 @@
   </div>
 </nav>
 
-<main class="wrap">
+<main class="wrap" id="main" tabindex="-1">
 
   <section class="hobby" id="retrogaming" style="--h:35">
     <div class="hobby-head"><div class="stick">
-      <div class="top"><svg class="ico"><use href="#i-game"/></svg><span class="mono">4 repos</span></div>
+      <div class="top"><svg class="ico" aria-hidden="true"><use href="#i-game"/></svg><span class="mono">4 repos</span></div>
       <h2>Retro gaming</h2>
       <p>1990s DOS classics brought to the browser, with touch controls so you can play them on a phone too.</p>
     </div></div>
     <ul class="rows">
-      <li><a class="row" href="https://mich-de.github.io/omf2097/"><span class="slug mono">omf2097</span><span class="main"><span class="t">One Must Fall 2097</span><span class="d">The 1994 robot fighting game, playable in the browser with js-dos and touch controls.</span></span><span class="k play mono">Play</span><svg class="arr"><use href="#i-arrow"/></svg></a></li>
-      <li><a class="row" href="https://github.com/mich-de/openomf2097"><span class="slug mono">openomf2097</span><span class="main"><span class="t">OpenOMF in WebAssembly</span><span class="d">OMF 2097 compiled natively to WebAssembly, no emulator.</span></span><span class="k mono">Code</span><svg class="arr"><use href="#i-arrow"/></svg></a></li>
-      <li><a class="row" href="https://github.com/mich-de/OpenOmf2097NWO"><span class="slug mono">OpenOmf2097NWO</span><span class="main"><span class="t">OMF 2097 · NWO</span><span class="d">A satirical edition with 24 pilots taken from today&#39;s world stage.</span></span><span class="k mono">Code</span><svg class="arr"><use href="#i-arrow"/></svg></a></li>
-      <li><a class="row" href="https://mich-de.github.io/mariosgg/"><span class="slug mono">mariosgg</span><span class="main"><span class="t">Mario&#39;s Game Gallery</span><span class="d">The 1995 minigame collection, playable on desktop and touch devices.</span></span><span class="k play mono">Play</span><svg class="arr"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="row" href="https://mich-de.github.io/omf2097/"><span class="slug mono">omf2097</span><span class="main"><span class="t">One Must Fall 2097</span><span class="d">The 1994 robot fighting game, playable in the browser with js-dos and touch controls.</span></span><span class="k play mono">Play</span><svg class="arr" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="row" href="https://github.com/mich-de/openomf2097"><span class="slug mono">openomf2097</span><span class="main"><span class="t">OpenOMF in WebAssembly</span><span class="d">OMF 2097 compiled natively to WebAssembly, no emulator.</span></span><span class="k mono">Code</span><svg class="arr" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="row" href="https://github.com/mich-de/OpenOmf2097NWO"><span class="slug mono">OpenOmf2097NWO</span><span class="main"><span class="t">OMF 2097 · NWO</span><span class="d">A satirical edition with 24 pilots taken from today&#39;s world stage.</span></span><span class="k mono">Code</span><svg class="arr" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="row" href="https://mich-de.github.io/mariosgg/"><span class="slug mono">mariosgg</span><span class="main"><span class="t">Mario&#39;s Game Gallery</span><span class="d">The 1995 minigame collection, playable on desktop and touch devices.</span></span><span class="k play mono">Play</span><svg class="arr" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
     </ul>
   </section>
 
   <section class="hobby" id="travel" style="--h:230">
     <div class="hobby-head"><div class="stick">
-      <div class="top"><svg class="ico"><use href="#i-compass"/></svg><span class="mono">4 repos</span></div>
+      <div class="top"><svg class="ico" aria-hidden="true"><use href="#i-compass"/></svg><span class="mono">4 repos</span></div>
       <h2>Travel</h2>
       <p>The Sol &amp; Local guides: walking routes, logistics and must-see spots, prepared before setting off.</p>
     </div></div>
     <ul class="rows">
-      <li><a class="row" href="https://github.com/mich-de/roma"><span class="slug mono">roma</span><span class="main"><span class="t">Rome</span><span class="d">Self-guided walks and themed itineraries across the city.</span></span><span class="k mono">Guide</span><svg class="arr"><use href="#i-arrow"/></svg></a></li>
-      <li><a class="row" href="https://github.com/mich-de/ponza"><span class="slug mono">ponza</span><span class="main"><span class="t">Ponza</span><span class="d">Coves, boat rental and ferries to the island.</span></span><span class="k mono">Guide</span><svg class="arr"><use href="#i-arrow"/></svg></a></li>
-      <li><a class="row" href="https://github.com/mich-de/spagna"><span class="slug mono">spagna</span><span class="main"><span class="t">Costa del Sol</span><span class="d">Itineraries, logistics and points of interest in southern Spain.</span></span><span class="k mono">Guide</span><svg class="arr"><use href="#i-arrow"/></svg></a></li>
-      <li><a class="row" href="https://github.com/mich-de/benevento-xi"><span class="slug mono">benevento-xi</span><span class="main"><span class="t">Benevento &amp; Sannio</span><span class="d">Walking tours, history and orientation in the Sannio area.</span></span><span class="k mono">Guide</span><svg class="arr"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="row" href="https://github.com/mich-de/roma"><span class="slug mono">roma</span><span class="main"><span class="t">Rome</span><span class="d">Self-guided walks and themed itineraries across the city.</span></span><span class="k mono">Guide</span><svg class="arr" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="row" href="https://github.com/mich-de/ponza"><span class="slug mono">ponza</span><span class="main"><span class="t">Ponza</span><span class="d">Coves, boat rental and ferries to the island.</span></span><span class="k mono">Guide</span><svg class="arr" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="row" href="https://github.com/mich-de/spagna"><span class="slug mono">spagna</span><span class="main"><span class="t">Costa del Sol</span><span class="d">Itineraries, logistics and points of interest in southern Spain.</span></span><span class="k mono">Guide</span><svg class="arr" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="row" href="https://github.com/mich-de/benevento-xi"><span class="slug mono">benevento-xi</span><span class="main"><span class="t">Benevento &amp; Sannio</span><span class="d">Walking tours, history and orientation in the Sannio area.</span></span><span class="k mono">Guide</span><svg class="arr" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
     </ul>
   </section>
 
   <section class="hobby" id="motors" style="--h:15">
     <div class="hobby-head"><div class="stick">
-      <div class="top"><svg class="ico"><use href="#i-gauge"/></svg><span class="mono">3 repos</span></div>
+      <div class="top"><svg class="ico" aria-hidden="true"><use href="#i-gauge"/></svg><span class="mono">3 repos</span></div>
       <h2>Motors</h2>
       <p>Technical manuals, service schedules and workshop notes for cars and two-wheelers.</p>
     </div></div>
     <ul class="rows">
-      <li><a class="row" href="https://github.com/mich-de/alfa-romeo-giulia"><span class="slug mono">alfa-romeo-giulia</span><span class="main"><span class="t">Alfa Romeo Giulia</span><span class="d">Tech specs, upgrades and the 100,000 km checklist.</span></span><span class="k mono">Portal</span><svg class="arr"><use href="#i-arrow"/></svg></a></li>
-      <li><a class="row" href="https://github.com/mich-de/hondash300"><span class="slug mono">hondash300</span><span class="main"><span class="t">Honda SH 300</span><span class="d">Technical manual, maintenance schedule and service log.</span></span><span class="k mono">Manual</span><svg class="arr"><use href="#i-arrow"/></svg></a></li>
-      <li><a class="row" href="https://github.com/mich-de/scooter"><span class="slug mono">scooter</span><span class="main"><span class="t">Scooter workshop</span><span class="d">Workshop notes and maintenance logbook for two-wheelers.</span></span><span class="k mono">Notes</span><svg class="arr"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="row" href="https://github.com/mich-de/alfa-romeo-giulia"><span class="slug mono">alfa-romeo-giulia</span><span class="main"><span class="t">Alfa Romeo Giulia</span><span class="d">Tech specs, upgrades and the 100,000 km checklist.</span></span><span class="k mono">Portal</span><svg class="arr" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="row" href="https://github.com/mich-de/hondash300"><span class="slug mono">hondash300</span><span class="main"><span class="t">Honda SH 300</span><span class="d">Technical manual, maintenance schedule and service log.</span></span><span class="k mono">Manual</span><svg class="arr" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="row" href="https://github.com/mich-de/scooter"><span class="slug mono">scooter</span><span class="main"><span class="t">Scooter workshop</span><span class="d">Workshop notes and maintenance logbook for two-wheelers.</span></span><span class="k mono">Notes</span><svg class="arr" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
     </ul>
   </section>
 
   <section class="hobby" id="food" style="--h:355">
     <div class="hobby-head"><div class="stick">
-      <div class="top"><svg class="ico"><use href="#i-glass"/></svg><span class="mono">2 repos</span></div>
+      <div class="top"><svg class="ico" aria-hidden="true"><use href="#i-glass"/></svg><span class="mono">2 repos</span></div>
       <h2>Food &amp; wine</h2>
       <p>Award-winning wineries and village food festivals: tradition at the table.</p>
     </div></div>
     <ul class="rows">
-      <li><a class="row" href="https://github.com/mich-de/vini-italiani"><span class="slug mono">vini-italiani</span><span class="main"><span class="t">Italian wines</span><span class="d">Interactive catalog and buyer&#39;s guide to award-winning wines.</span></span><span class="k mono">Catalog</span><svg class="arr"><use href="#i-arrow"/></svg></a></li>
-      <li><a class="row" href="https://github.com/mich-de/sagre"><span class="slug mono">sagre</span><span class="main"><span class="t">SagreAI</span><span class="d">Discover traditional food festivals and cultural events.</span></span><span class="k mono">Platform</span><svg class="arr"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="row" href="https://github.com/mich-de/vini-italiani"><span class="slug mono">vini-italiani</span><span class="main"><span class="t">Italian wines</span><span class="d">Interactive catalog and buyer&#39;s guide to award-winning wines.</span></span><span class="k mono">Catalog</span><svg class="arr" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="row" href="https://github.com/mich-de/sagre"><span class="slug mono">sagre</span><span class="main"><span class="t">SagreAI</span><span class="d">Discover traditional food festivals and cultural events.</span></span><span class="k mono">Platform</span><svg class="arr" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
     </ul>
   </section>
 
   <section class="hobby" id="fragrances" style="--h:305">
     <div class="hobby-head"><div class="stick">
-      <div class="top"><svg class="ico"><use href="#i-bottle"/></svg><span class="mono">1 repo</span></div>
+      <div class="top"><svg class="ico" aria-hidden="true"><use href="#i-bottle"/></svg><span class="mono">1 repo</span></div>
       <h2>Fragrances</h2>
       <p>Scent notes side by side: the big names and their alternatives.</p>
     </div></div>
     <ul class="rows">
-      <li><a class="row" href="https://github.com/mich-de/profumi"><span class="slug mono">profumi</span><span class="main"><span class="t">ScentSense</span><span class="d">Interactive comparison of luxury perfumes and their dupes (Zara, Lattafa and more).</span></span><span class="k mono">Portal</span><svg class="arr"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="row" href="https://github.com/mich-de/profumi"><span class="slug mono">profumi</span><span class="main"><span class="t">ScentSense</span><span class="d">Interactive comparison of luxury perfumes and their dupes (Zara, Lattafa and more).</span></span><span class="k mono">Portal</span><svg class="arr" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
     </ul>
   </section>
 
   <section class="hobby" id="homelab" style="--h:165">
     <div class="hobby-head"><div class="stick">
-      <div class="top"><svg class="ico"><use href="#i-server"/></svg><span class="mono">2 repos</span></div>
+      <div class="top"><svg class="ico" aria-hidden="true"><use href="#i-server"/></svg><span class="mono">2 repos</span></div>
       <h2>Homelab &amp; networking</h2>
       <p>Routers, VPNs and self-hosted home servers.</p>
     </div></div>
     <ul class="rows">
-      <li><a class="row" href="https://github.com/mich-de/brume-firmware"><span class="slug mono">brume-firmware</span><span class="main"><span class="t">Brume 2 firmware</span><span class="d">Custom OpenWrt with WireGuard, AdGuard Home, NetBird and DoH.</span></span><span class="k mono">Firmware</span><svg class="arr"><use href="#i-arrow"/></svg></a></li>
-      <li><a class="row" href="https://github.com/mich-de/immic-for-pixels-phone"><span class="slug mono">immic-for-pixels-phone</span><span class="main"><span class="t">Immich on Pixel</span><span class="d">A self-hosted photo server running directly on a Pixel phone.</span></span><span class="k mono">Setup</span><svg class="arr"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="row" href="https://github.com/mich-de/brume-firmware"><span class="slug mono">brume-firmware</span><span class="main"><span class="t">Brume 2 firmware</span><span class="d">Custom OpenWrt with WireGuard, AdGuard Home, NetBird and DoH.</span></span><span class="k mono">Firmware</span><svg class="arr" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="row" href="https://github.com/mich-de/immic-for-pixels-phone"><span class="slug mono">immic-for-pixels-phone</span><span class="main"><span class="t">Immich on Pixel</span><span class="d">A self-hosted photo server running directly on a Pixel phone.</span></span><span class="k mono">Setup</span><svg class="arr" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
     </ul>
   </section>
 
   <section class="hobby" id="smartphone" style="--h:265">
     <div class="hobby-head"><div class="stick">
-      <div class="top"><svg class="ico"><use href="#i-phone"/></svg><span class="mono">2 repos</span></div>
+      <div class="top"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg><span class="mono">2 repos</span></div>
       <h2>Smartphone tuning</h2>
       <p>Squeezing more battery life and performance out of Android phones.</p>
     </div></div>
     <ul class="rows">
-      <li><a class="row" href="https://github.com/mich-de/s25edge_battery"><span class="slug mono">s25edge_battery</span><span class="main"><span class="t">Galaxy S25 Edge</span><span class="d">Battery optimization, performance profiles and debloat scripts.</span></span><span class="k mono">Scripts</span><svg class="arr"><use href="#i-arrow"/></svg></a></li>
-      <li><a class="row" href="https://github.com/mich-de/samsung_s24_battery_life"><span class="slug mono">samsung_s24_battery_life</span><span class="main"><span class="t">Galaxy S24</span><span class="d">Power calibration and tuning utilities for the S24 series.</span></span><span class="k mono">Scripts</span><svg class="arr"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="row" href="https://github.com/mich-de/s25edge_battery"><span class="slug mono">s25edge_battery</span><span class="main"><span class="t">Galaxy S25 Edge</span><span class="d">Battery optimization, performance profiles and debloat scripts.</span></span><span class="k mono">Scripts</span><svg class="arr" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="row" href="https://github.com/mich-de/samsung_s24_battery_life"><span class="slug mono">samsung_s24_battery_life</span><span class="main"><span class="t">Galaxy S24</span><span class="d">Power calibration and tuning utilities for the S24 series.</span></span><span class="k mono">Scripts</span><svg class="arr" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
     </ul>
   </section>
 
   <section class="hobby" id="ai" style="--h:85">
     <div class="hobby-head"><div class="stick">
-      <div class="top"><svg class="ico"><use href="#i-mic"/></svg><span class="mono">1 repo</span></div>
+      <div class="top"><svg class="ico" aria-hidden="true"><use href="#i-mic"/></svg><span class="mono">1 repo</span></div>
       <h2>AI &amp; voice</h2>
       <p>Text-to-speech experiments with open models.</p>
     </div></div>
     <ul class="rows">
-      <li><a class="row" href="https://github.com/mich-de/Qwen3-TTS-Colab-ita"><span class="slug mono">Qwen3-TTS-Colab-ita</span><span class="main"><span class="t">Qwen3 TTS in Italian</span><span class="d">Colab notebook and text-to-speech pipeline tuned for Italian.</span></span><span class="k mono">Notebook</span><svg class="arr"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="row" href="https://github.com/mich-de/Qwen3-TTS-Colab-ita"><span class="slug mono">Qwen3-TTS-Colab-ita</span><span class="main"><span class="t">Qwen3 TTS in Italian</span><span class="d">Colab notebook and text-to-speech pipeline tuned for Italian.</span></span><span class="k mono">Notebook</span><svg class="arr" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
     </ul>
   </section>
 
@@ -335,10 +420,39 @@
     }
     btn.addEventListener('click', function () {
       root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-      localStorage.setItem('theme', root.dataset.theme);
+      try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+      document.getElementById('theme-color').content = root.dataset.theme === 'dark' ? '#0e0e0e' : '#f3f2ef';
       sync();
     });
     sync();
+  })();
+
+  (function () {
+    var root = document.documentElement, sp = document.getElementById('splash');
+    if (!root.classList.contains('is-splash')) { sp.remove(); return; }
+    try { sessionStorage.setItem('splash-seen', '1'); } catch (e) {}
+
+    var steps = ["Retro gaming","Travel","Motors","Food & wine","Fragrances","Homelab & networking","Smartphone tuning","AI & voice"], total = steps.length, timers = [], done = false;
+    var label = document.getElementById('sp-label'), count = document.getElementById('sp-count');
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+    function at(ms, fn) { timers.push(setTimeout(fn, ms)); }
+
+    steps.forEach(function (title, i) {
+      at(140 + i * 110, function () { label.textContent = title; count.textContent = pad(i + 1) + '/' + pad(total); });
+    });
+    at(1220, function () { label.textContent = 'Ready'; sp.classList.add('ready'); });
+    at(1500, close);
+
+    // Any input skips. The end state never depends on animationend.
+    function close() {
+      if (done) return;
+      done = true;
+      timers.forEach(clearTimeout);
+      sp.classList.add('out');
+      setTimeout(function () { root.classList.remove('is-splash'); sp.remove(); }, 480);
+      ['pointerdown', 'keydown', 'wheel', 'touchmove'].forEach(function (ev) { removeEventListener(ev, close, true); });
+    }
+    ['pointerdown', 'keydown', 'wheel', 'touchmove'].forEach(function (ev) { addEventListener(ev, close, { capture: true, passive: true }); });
   })();
 </script>
 </body>
