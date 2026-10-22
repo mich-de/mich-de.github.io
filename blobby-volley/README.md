@@ -14,6 +14,7 @@ Remake per browser di Blobby Volley, da giocare sul telefono. Si gioca contro il
 ## File
 - `index.html`: il gioco completo (HTML, CSS e JavaScript in un solo file)
 - `voices.js`: voci delle battute e risate in MP3 (base64)
+- `tools/`: script per rigenerare le voci con la pronuncia napoletana (istruzioni in `tools/README.md`)
 
 ## Crediti
 - Voci generate con [Piper TTS](https://github.com/rhasspy/piper) (voci it_IT riccardo e paola), con la pronuncia napoletana applicata suono per suono secondo [Wikibooks: Napoletano/Pronuncia](https://it.wikibooks.org/wiki/Napoletano/Pronuncia): scevà (ə) sulle vocali finali e atone, s + consonante = [ʃ], gu = [w], gli = [j], rotacismo della d
